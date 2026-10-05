@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f2f2f7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Miguel Fitness">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<title>Miguel OS · Fitness</title>
+<style>
+:root{
+  --bg:#f2f2f7;--card:rgba(255,255,255,.86);--solid:#fff;--text:#111113;
+  --muted:#6e6e73;--line:#d1d1d6;--blue:#007aff;--green:#34c759;
+  --orange:#ff9500;--red:#ff3b30;--purple:#af52de;
+  --shadow:0 8px 28px rgba(0,0,0,.06);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg)}
+body{margin:0;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",system-ui,sans-serif;font-size:16px}
+button,input,textarea,select{font:inherit}
+button{border:0}
+.app{min-height:100vh;padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+.topbar{
+  position:sticky;top:0;z-index:20;padding:calc(12px + env(safe-area-inset-top)) 18px 12px;
+  background:rgba(242,242,247,.82);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  border-bottom:1px solid rgba(0,0,0,.05)
+}
+.topbar .eyebrow{font-size:13px;color:var(--muted);font-weight:600}
+.topbar h1{font-size:30px;line-height:1.05;margin:3px 0 0;letter-spacing:-.7px}
+main{max-width:720px;margin:0 auto;padding:18px 16px}
+.section-title{font-size:22px;font-weight:750;letter-spacing:-.3px;margin:5px 2px 12px}
+.card{
+  background:var(--card);border:1px solid rgba(255,255,255,.7);border-radius:22px;
+  box-shadow:var(--shadow);padding:17px;margin-bottom:14px
+}
+.hero{background:linear-gradient(135deg,#0a84ff,#5e5ce6);color:#fff;border:0}
+.hero .muted{color:rgba(255,255,255,.78)}
+.hero h2{font-size:25px;letter-spacing:-.5px;margin:0 0 6px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.stat{background:rgba(118,118,128,.10);border-radius:18px;padding:14px}
+.stat .label{font-size:12px;color:var(--muted);font-weight:600}
+.stat .value{font-size:23px;font-weight:750;margin-top:3px}
+.hero .stat{background:rgba(255,255,255,.15)}.hero .stat .label{color:rgba(255,255,255,.75)}
+.hero .stat .value{color:#fff}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.space{justify-content:space-between}
+.muted{color:var(--muted);font-size:14px}
+.small{font-size:12px;color:var(--muted)}
+.progress{height:9px;background:rgba(118,118,128,.16);border-radius:99px;overflow:hidden;margin:12px 0 4px}
+.progress span{display:block;height:100%;background:var(--blue);border-radius:99px;transition:.25s}
+.hero .progress{background:rgba(255,255,255,.22)}.hero .progress span{background:#fff}
+.check{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(60,60,67,.10)}
+.check:last-child{border-bottom:0}
+.check input{appearance:none;width:23px;height:23px;border-radius:50%;border:1.5px solid #c7c7cc;background:#fff;flex:0 0 auto}
+.check input:checked{background:var(--green);border-color:var(--green);position:relative}
+.check input:checked:after{content:"✓";color:#fff;font-weight:800;position:absolute;left:5px;top:0px}
+button.primary{background:var(--blue);color:#fff;padding:10px 15px;border-radius:14px;font-weight:650}
+button.secondary{background:rgba(118,118,128,.12);color:var(--blue);padding:10px 15px;border-radius:14px;font-weight:650}
+button.destructive{background:rgba(255,59,48,.10);color:var(--red);padding:10px 15px;border-radius:14px;font-weight:650}
+input,textarea,select{
+  width:100%;border:0;outline:0;background:rgba(118,118,128,.10);border-radius:13px;
+  padding:11px 12px;color:var(--text)
+}
+label.field{display:block;font-size:12px;color:var(--muted);font-weight:600}
+label.field input,label.field select{margin-top:5px}
+.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.pill{padding:7px 10px;border-radius:99px;background:rgba(0,122,255,.10);color:var(--blue);font-size:12px;font-weight:650}
+.exercise{background:rgba(118,118,128,.08);border-radius:18px;padding:14px;margin:9px 0}
+.exercise h4{margin:0 0 3px;font-size:16px}
+.sets{display:grid;grid-template-columns:1fr 82px 82px 58px;gap:7px;margin-top:10px;align-items:center}
+.sets button{background:var(--blue);color:#fff;border-radius:11px;padding:9px 7px;font-size:13px;font-weight:650}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:9px 5px;border-bottom:1px solid rgba(60,60,67,.12)}
+.empty{color:var(--muted);text-align:center;padding:25px 8px}
+.note{background:#fff8e6;border-radius:16px;padding:13px;color:#7a5a00;font-size:13px}
+.bottom{
+  position:fixed;left:0;right:0;bottom:0;z-index:30;
+  padding:8px 8px calc(8px + env(safe-area-inset-bottom));
+  background:rgba(250,250,252,.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-top:1px solid rgba(60,60,67,.14)
+}
+.tabs{max-width:720px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr)}
+.tabbtn{background:transparent;color:#8e8e93;display:flex;flex-direction:column;align-items:center;gap:3px;padding:3px 0;font-size:10px;font-weight:600}
+.tabbtn .ico{font-size:22px;line-height:22px}.tabbtn.active{color:var(--blue)}
+.toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:#1c1c1e;color:#fff;padding:11px 15px;border-radius:99px;font-size:13px;z-index:50;opacity:0;pointer-events:none;transition:.2s}
+.toast.show{opacity:1}
+@media(min-width:700px){main{padding-top:26px}.grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+  <div class="eyebrow">MIGUEL OS · FITNESS</div>
+  <h1 id="pageTitle">Hoy</h1>
+</header>
+<main id="app"></main>
+<nav class="bottom"><div class="tabs" id="tabs"></div></nav>
+<div class="toast" id="toast"></div>
+</div>
+<script>
+const plan={
+ A:[["Prensa / sentadilla","3","6-10"],["Press banca","3","6-10"],["Remo sentado","3","8-12"],["Peso muerto rumano","2","8-12"],["Elevaciones laterales","3","12-20"],["Crunch en polea","3","10-15"]],
+ B:[["Hack squat / sentadilla","3","8-12"],["Jalón al pecho","3","8-12"],["Press inclinado","3","8-12"],["Curl femoral","2","10-15"],["Face pull","3","12-20"],["Elevación de piernas","3","8-15"]],
+ C:[["Split squat / zancadas","3","8-12"],["Remo","3","8-12"],["Press de hombros","3","8-12"],["Hip thrust","2","8-12"],["Elevaciones laterales","3","12-20"],["Bíceps","2","10-15"],["Tríceps","2","10-15"],["Plancha lateral","2","30-45 s"]]
+};
+const mobility=["Cat-cow × 10","Rotación torácica × 6/lado","Chin tucks × 10","Wall slides × 10","Estiramiento pectoral 30 s/lado","90/90 × 5/lado","Sentadilla profunda asistida 45 s"];
+const tabs=[
+ ["home","Hoy","⌂"],["workout","Entreno","🏋️"],["habits","Hábitos","✓"],["measure","Medidas","⌁"],["history","Historial","▣"]
+];
+let state=JSON.parse(localStorage.getItem("miguelFitnessIOS")||"{}");
+state.days??={};state.measurements??=[];state.workouts??=[];state.photos??=[];
+let active="home";
+const key=()=>new Date().toISOString().slice(0,10);
+const day=()=>{let k=key();state.days[k]??={checks:{},steps:"",beer:"",sleep:"",note:""};return state.days[k]};
+function save(){localStorage.setItem("miguelFitnessIOS",JSON.stringify(state))}
+function toast(t){const e=document.getElementById("toast");e.textContent=t;e.classList.add("show");setTimeout(()=>e.classList.remove("show"),1400)}
+function go(t){active=t;render()}
+function renderTabs(){document.getElementById("tabs").innerHTML=tabs.map(([id,n,ico])=>`<button class="tabbtn ${active==id?"active":""}" onclick="go('${id}')"><span class="ico">${ico}</span>${n}</button>`).join("")}
+function title(t){document.getElementById("pageTitle").textContent=t}
+function render(){renderTabs();const el=document.getElementById("app");({home:home,workout:workout,habits:habits,measure:measure,history:history}[active])(el)}
+function home(el){
+ title("Hoy");const d=day(),c=Object.values(d.checks).filter(Boolean).length,p=Math.round(c/5*100);
+ el.innerHTML=`
+ <section class="card hero">
+   <div class="row space"><div><h2>Tu físico se construye aquí.</h2><div class="muted">Viajes incluidos. Perfección no necesaria.</div></div><div style="font-size:36px">⚡</div></div>
+   <div class="progress"><span style="width:${p}%"></span></div><div class="muted">${c}/5 hábitos completados hoy</div>
+ </section>
+ <div class="section-title">Resumen</div>
+ <section class="grid">
+  <div class="stat"><div class="label">Pasos</div><div class="value">${d.steps||"—"}</div></div>
+  <div class="stat"><div class="label">Sueño</div><div class="value">${d.sleep?d.sleep+" h":"—"}</div></div>
+  <div class="stat"><div class="label">Cervezas</div><div class="value">${d.beer||0} / 5</div></div>
+  <div class="stat"><div class="label">Objetivo</div><div class="value">3× fuerza</div></div>
+ </section>
+ <section class="card"><h3>Checklist diario</h3>
+ ${[["protein","🥩 Proteína 120-140 g"],["steps","🚶 7.500+ pasos"],["train","🏋️ Entreno / movilidad"],["alcohol","🍺 Alcohol dentro del límite"],["sleep","😴 ~7 h de sueño"]].map(([k,l])=>`<label class="check"><input type="checkbox" ${d.checks[k]?"checked":""} onchange="day().checks['${k}']=this.checked;save();render()"><span>${l}</span></label>`).join("")}
+ </section>
+ <section class="card"><h3>Registrar hoy</h3><div class="formgrid">
+ <label class="field">Pasos<input type="number" value="${d.steps}" onchange="day().steps=this.value;save()"></label>
+ <label class="field">Cervezas<input type="number" min="0" value="${d.beer}" onchange="day().beer=this.value;save()"></label>
+ <label class="field">Sueño (h)<input type="number" step=".1" value="${d.sleep}" onchange="day().sleep=this.value;save()"></label>
+ </div></section>
+ <section class="card"><div class="row space"><div><h3>Plan de hoy</h3><div class="muted">Si es día de fuerza → Full Body A/B/C. Si no → pasos + movilidad.</div></div><button class="primary" onclick="go('workout')">Ver entreno</button></div></section>
+ <section class="note">Regla Miguel OS: una comida mala no se compensa con hambre ni cardio. Vuelve a la siguiente comida normal.</section>`;
+}
+function workout(el){
+ title("Entreno");
+ el.innerHTML=`<section class="card"><div class="row"><span class="pill">RIR 2–3</span><span class="pill">45–60 min</span><span class="pill">3 días/semana</span></div><p class="muted">Si haces solo 2 sesiones, continúa A → B → C la siguiente vez. Registra tus cargas para ver progresión.</p>
+ ${Object.entries(plan).map(([x,arr])=>`<h2>Full Body ${x}</h2>${arr.map((e,i)=>`<div class="exercise"><h4>${e[0]}</h4><div class="small">${e[1]} series · ${e[2]} reps</div><div class="sets"><span class="small">Carga / reps</span><input id="${x}${i}w" type="number" step=".5" placeholder="kg"><input id="${x}${i}r" type="number" placeholder="reps"><button onclick="logSet('${x}',${i})">Guardar</button></div></div>`).join("")}`).join("")}</section>
+ <section class="card"><h2>Movilidad · 8 min</h2>${mobility.map(x=>`<div class="check"><span>✓</span><span>${x}</span></div>`).join("")}</section>`;
+}
+function logSet(x,i){const w=document.getElementById(x+i+"w").value,r=document.getElementById(x+i+"r").value;if(!w&&!r)return;state.workouts.push({date:key(),session:x,exercise:plan[x][i][0],weight:w,reps:r});save();toast("Serie guardada");}
+function habits(el){
+ title("Hábitos");
+ el.innerHTML=`<section class="card"><h2>Modo viaje ✈️</h2><p class="muted">Tu versión mínima sostenible cuando estás fuera.</p>
+ ${["7.500–10.000 pasos/día","Proteína en cada comida principal","≤5 cervezas/semana, mejor en 1–2 días","2–3 min de movimiento cada 60–90 min","Movilidad 8 min","Sauna 1–2×/semana opcional + hidratación"].map(x=>`<div class="check"><span>✓</span><span>${x}</span></div>`).join("")}</section>
+ <section class="card"><h2>Nota del día</h2><textarea rows="5" placeholder="¿Cómo te has encontrado hoy?" onchange="day().note=this.value;save()">${day().note||""}</textarea></section>
+ <section class="card"><h2>Rutina de emergencia</h2><p><b>25 min:</b> sentadilla/prensa 3 · press 3 · remo/jalón 3 · laterales 2 · abdomen 2.</p><p><b>15 min:</b> 3 rondas de 15 sentadillas · 10–15 flexiones · 10–15 zancadas/lado · 30–45 s plancha.</p></section>`;
+}
+function measure(el){
+ title("Medidas");
+ el.innerHTML=`<section class="card"><h2>Día 0 / Seguimiento</h2><p class="muted">Peso y cintura: por la mañana, después del baño y antes de desayunar. Fotos cada 3–4 semanas con condiciones parecidas.</p>
+ <div class="formgrid"><label class="field">Fecha<input id="md" type="date" value="${key()}"></label><label class="field">Peso (kg)<input id="mw" type="number" step=".1"></label><label class="field">Cintura (cm)<input id="mc" type="number" step=".1"></label></div><br>
+ <button class="primary" onclick="addMeasure()">Guardar medición</button></section>
+ <section class="card"><h2>Objetivo físico</h2><div class="row"><span class="pill">Cintura ↓</span><span class="pill">Fuerza ↑</span><span class="pill">Abdominales visibles</span><span class="pill">Hombros/espalda/pecho ↑</span></div><p class="muted">No perseguimos un número concreto en la báscula.</p></section>`;
+}
+function addMeasure(){const w=document.getElementById("mw").value,c=document.getElementById("mc").value;if(!w&&!c)return;state.measurements.push({date:document.getElementById("md").value,weight:w,waist:c});save();toast("Medición guardada");render()}
+function history(el){
+ title("Historial");
+ const m=state.measurements.slice().reverse(),w=state.workouts.slice().reverse();
+ el.innerHTML=`<section class="card"><h2>Mediciones</h2>${m.length?`<table><tr><th>Fecha</th><th>Peso</th><th>Cintura</th></tr>${m.map(x=>`<tr><td>${x.date}</td><td>${x.weight||"—"}</td><td>${x.waist||"—"}</td></tr>`).join("")}</table>`:`<div class="empty">Aún no hay mediciones.<br>Al volver a casa: peso + cintura.</div>`}</section>
+ <section class="card"><h2>Entrenamientos</h2>${w.length?`<table><tr><th>Fecha</th><th>Sesión</th><th>Ejercicio</th><th>kg</th><th>reps</th></tr>${w.slice(0,60).map(x=>`<tr><td>${x.date}</td><td>${x.session}</td><td>${x.exercise}</td><td>${x.weight||"—"}</td><td>${x.reps||"—"}</td></tr>`).join("")}</table>`:`<div class="empty">Tu primera sesión aparecerá aquí.</div>`}</section>
+ <section class="card"><button class="destructive" onclick="resetData()">Borrar todos los datos de esta app</button></section>`;
+}
+function resetData(){if(confirm("¿Borrar todos los datos guardados en este dispositivo?")){localStorage.removeItem("miguelFitnessIOS");location.reload()}}
+render();
+if("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js"));
+</script>
+</body>
+</html>
